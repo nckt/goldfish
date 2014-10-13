@@ -32,7 +32,7 @@ for SITE in $(ls -1 ${SITESDIR}/*.json); do
 	# 前回の取得結果をリネームして残しておく
 	HTMLFILENAME=`cat ${SITE} | jq '.id'`.html
 	HTMLFULLPATH=${HTMLDIR}/${HTMLFILENAME}
-	if [ -f ${HTMLFULLPATH ]; then
+	if [ -f ${HTMLFULLPATH} ]; then
 		cp ${HTMLFULLPATH} ${HTMLFULLPATH}.old
 	else
 		touch ${HTMLFULLPATH}
