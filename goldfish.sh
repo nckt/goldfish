@@ -42,6 +42,7 @@ for SITE in $(ls -1 ${SITESDIR}/*.json); do
 	RESULT=`diff ${HTMLFULLPATH} ${HTMLFULLPATH}.old | wc -l`
 	if [ ${RESULT} > 0 ]; then
 		send_mail ${HTMLFULLPATH} ${URL}
+		echo "メールを送信しました。"
 	fi
 done
 
