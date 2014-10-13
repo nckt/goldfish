@@ -16,7 +16,7 @@ HTMLDIR=$WORKDIR/html
 ##
 send_mail() {
 	local recipient=`cat ${RECIPIENTFILE} | jq '.[]' | perl -pe 's/\n/,/'`
-	local title=`cat $1 | awk 'match($0, /<title>.*?<\/title>/){print substr(\$0, RSTART, RLENGTH)}' | xargs sed s/\<title\>\|\<\\/title\>//`
+	local title=`cat $1 | awk 'match($0, /<title>.*?<\/title>/){print substr(\$0, RSTART, RLENGTH)}' | xargs sed s/\<title\>\|\<\\/title\>//g`
 	cat << EOT | mail -s '[goldfish]サイト更新通知' ${recipient}
 サイトが更新されました!
 
@@ -30,7 +30,7 @@ EOT
 # --- 本体処理 --- #
 for SITE in $(ls -1 ${SITESDIR}/*.json); do
 	# 前回の取得結果をリネームして残しておく
-	HTMLFILENAME=`cat ${SITE} | jq '.id' | sed s/\"//`.html
+	HTMLFILENAME=`cat ${SITE} | jq '.id' | sed s/\"//g`.html
 	HTMLFULLPATH=${HTMLDIR}/${HTMLFILENAME}
 	if [ -f ${HTMLFULLPATH} ]; then
 		mv ${HTMLFULLPATH} ${HTMLFULLPATH}.old
@@ -39,7 +39,7 @@ for SITE in $(ls -1 ${SITESDIR}/*.json); do
 	fi
 	
 	# 現在と前回を比較し、違いがあったらメールする
-	URL=`cat ${SITE} | jq '.url' | sed s/\"//`
+	URL=`cat ${SITE} | jq '.url' | sed s/\"//g`
 	curl -o ${HTMLFULLPATH} ${URL}
 	RESULT=`diff ${HTMLFULLPATH} ${HTMLFULLPATH}.old | wc -l`
 	if [ ${RESULT} > 0 ]; then
