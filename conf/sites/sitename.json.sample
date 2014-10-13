@@ -1,4 +1,4 @@
 {
-	id: "example",
-	url: "http://example.com"
+	"id" : "example",
+	"url" : "http://example.com"
 }
