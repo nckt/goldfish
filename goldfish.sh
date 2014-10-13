@@ -30,16 +30,16 @@ EOT
 # --- 本体処理 --- #
 for SITE in $(ls -1 ${SITESDIR}/*.json); do
 	# 前回の取得結果をリネームして残しておく
-	HTMLFILENAME=`cat ${SITE} | jq '.id'`.html
+	HTMLFILENAME=`cat ${SITE} | jq '.id' | sed s/\"//`.html
 	HTMLFULLPATH=${HTMLDIR}/${HTMLFILENAME}
 	if [ -f ${HTMLFULLPATH} ]; then
-		cp ${HTMLFULLPATH} ${HTMLFULLPATH}.old
+		mv ${HTMLFULLPATH} ${HTMLFULLPATH}.old
 	else
-		touch ${HTMLFULLPATH}
+		touch ${HTMLFULLPATH}.old
 	fi
 	
 	# 現在と前回を比較し、違いがあったらメールする
-	URL=`cat ${SITE} | jq '.url'`
+	URL=`cat ${SITE} | jq '.url' | sed s/\"//`
 	curl -o ${HTMLFULLPATH} ${URL}
 	RESULT=`diff ${HTMLFULLPATH} ${HTMLFULLPATH}.old | wc -l`
 	if [ ${RESULT} > 0 ]; then
