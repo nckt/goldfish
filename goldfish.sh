@@ -35,7 +35,7 @@ for SITE in $(ls -1 ${SITESDIR}/*.json); do
 	cp ${HTMLFULLPATH} ${HTMLFULLPATH}.old
 	
 	# 現在と前回を比較し、違いがあったらメールする
-	URL=`cat SITE | jq '.url'`
+	URL=`cat ${SITE} | jq '.url'`
 	curl -o ${FILENAME} ${URL}
 	RESULT=`diff ${HTMLFULLPATH} ${HTMLFULLPATH}.old | wc -l`
 	if [ ${RESULT} > 0 ]; then
