@@ -40,7 +40,7 @@ for SITE in $(ls -1 ${SITESDIR}/*.json); do
 	
 	# 現在と前回を比較し、違いがあったらメールする
 	URL=`cat ${SITE} | jq '.url' | sed s/\"//g`
-	curl -o ${URL} | perl -pe 's/tdftad.*//' > ${HTMLFULLPATH}
+	curl ${URL} | perl -pe 's/tdftad.*//' > ${HTMLFULLPATH}
 	RESULT=`diff ${HTMLFULLPATH} ${HTMLFULLPATH}.old | wc -l`
 	if [ ${RESULT} > 0 ]; then
 		send_mail ${HTMLFULLPATH} ${URL}
