@@ -16,9 +16,7 @@ HTMLDIR=$WORKDIR/html
 ##
 send_mail(){
 	local recipient=cat ${RECIPIENTFILE} | jq '.[]' | perl -pe 's/\n/,/'
-	local title=`cat $1 \
-		| awk 'match($0, /<title>.*?<\/title>/)'{print substr($0, RSTART, RLENGTH) \
-		| sed s/<title>|<\/title>//`
+	local title=`cat $1 | awk 'match($0, /<title>.*?<\/title>/)'{print substr($0, RSTART, RLENGTH) | sed s/<title>|<\/title>//`
 	cat << EOT | mail -s '[goldfish]サイト更新通知' ${recipient}
 サイトが更新されました!
 
