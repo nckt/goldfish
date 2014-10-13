@@ -24,12 +24,12 @@ teardown(){
 	rm ${NOW}.json
 }
 
-@test "一回目の実行時はメールが送信される"{
+@test "一回目の実行時はメールが送信される" {
 	run ../goldfish.sh
 	[ $line[0] = "メールを送信しました。" ]
 }
 
-@test "二回目の実行時はメールが送信されない"{
+@test "二回目の実行時はメールが送信されない" {
 	run ../goldfish.sh
 	[ $output = "" ]
 }
