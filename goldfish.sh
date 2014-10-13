@@ -32,7 +32,11 @@ for SITE in $(ls -1 ${SITESDIR}/*.json); do
 	# 前回の取得結果をリネームして残しておく
 	HTMLFILENAME=`cat ${SITE} | jq '.id'`.html
 	HTMLFULLPATH=${HTMLDIR}/${HTMLFILENAME}
-	cp ${HTMLFULLPATH} ${HTMLFULLPATH}.old
+	if [ -f ${HTMLFULLPATH ]; then
+		cp ${HTMLFULLPATH} ${HTMLFULLPATH}.old
+	else
+		touch ${HTMLFULLPATH}
+	fi
 	
 	# 現在と前回を比較し、違いがあったらメールする
 	URL=`cat ${SITE} | jq '.url'`
