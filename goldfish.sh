@@ -42,7 +42,7 @@ for SITE in $(ls -1 ${SITESDIR}/*.json); do
 	URL=`cat ${SITE} | jq '.url' | sed s/\"//g`
 	curl ${URL} | perl -pe 's/\n//' | sed s/tdftad.*// > ${HTMLFULLPATH}
 	RESULT=`diff ${HTMLFULLPATH} ${HTMLFULLPATH}.old | wc -l`
-	if [ ${RESULT} > 0 ]; then
+	if [ ${RESULT} -gt 0 ]; then
 		send_mail ${HTMLFULLPATH} ${URL}
 		echo "メールを送信しました。"
 	fi
