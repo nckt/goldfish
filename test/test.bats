@@ -26,10 +26,10 @@ teardown(){
 
 @test "一回目の実行時はメールが送信される"{
 	run ../goldfish.sh
-	[ $output = "メールを送信しました。" ]
+	[ $line[0] = "メールを送信しました。" ]
 }
 
-@test "���ڂ̎��s�ł̓��[�������Ȃ�"{
+@test "二回目の実行時はメールが送信されない"{
 	run ../goldfish.sh
 	[ $output = "" ]
 }
