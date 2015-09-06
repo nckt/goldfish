@@ -1,0 +1,6 @@
+{
+	"id": "goldfish-kingdom",
+	"url": "http://www.goldfishkingdom.client.jp",
+	"regexp": "<div id=\\\"menu\\\".*?</ul>",
+	"is_regexp_multiline": true
+}
