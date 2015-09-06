@@ -17,7 +17,6 @@ HTMLDIR=$WORKDIR/html
 send_mail(){
 	local recipient=`cat ${RECIPIENTFILE} | jq '.[]' | perl -pe 's/\n/,/'`
 
-	echo "mail -s '[goldfish]サイト更新通知' ${recipient}"
 	cat << EOT | mail -s '[goldfish]サイト更新通知' ${recipient}
 サイトが更新されました!
 
@@ -37,7 +36,7 @@ for SITE in $(ls -1 ${SITESDIR}/*.json); do
 	IS_REGEXP_MULTILINE=`cat ${SITE} | jq '.is_regexp_multiline'`
 	COMMAND=`cat ${SITE} | jq -r '.pipeline_command'`
 
-	echo "----- CHECK ${ID} -----"
+	echo "----- CHECK ${ID} $(date +%y/%m/%d-%H:%M:%S) -----"
 
 	# 前回の取得結果をリネームして残しておく
 	HTMLFILENAME=${ID}.html
@@ -79,6 +78,6 @@ for SITE in $(ls -1 ${SITESDIR}/*.json); do
 		echo '[TRACE] THERE ARE NO CHANGES.'
 	fi
 
-	echo "--- CHECK ${ID} END ---"
+	echo "--- CHECK ${ID} END $(date +%y/%m/%d-%H:%M:%S) ---"
 done
 
