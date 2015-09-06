@@ -1,0 +1,6 @@
+{
+	"id": "PostgreSQL-ReleaseNote",
+	"url": "http://www.postgresql.org/",
+	"regexp": "<div id=\\\"pgFrontLatestReleasesWrap\\\".*?</div>",
+	"is_regexp_multiline": true
+}
