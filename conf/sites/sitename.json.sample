@@ -1,4 +1,7 @@
 {
-	id: "example",
-	url: "http://example.com"
+	"id": "example",
+	"url": "http://example.com",
+	"regexp": ".+",
+	"is_regexp_multiline": true,
+	"pipeline_command": "grep -E '<div id=\"target\".+"
 }
